@@ -1,0 +1,67 @@
+<div th:fragment="menu">
+
+	<div class="info-header ">
+
+		<div class="col-sm-6">Email: nhaccummusic@gmail.com</div>
+		<div class="col-sm-6 ">
+			<span class="glyphicon glyphicon-phone-alt"></span> Sđt: 0967863046
+		</div>
+	</div>
+	<!--Thanh menu-->
+	<div id="menu-gt">
+		<nav class="navbar navbar-inverse">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#main-menu-black">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+			
+			</div>
+			<div class="navbar-collapse collapse" id="main-menu-black">
+				<div class="nav navbar-nav">
+
+					<li><a th:href="@{/adguitar}">GUITAR </a></li>
+					<li><a th:href="@{/adukulele}">UKULELE </a></li>
+					<li><a th:href="@{/adpiano}">PIANO</a></li>
+					<li><a th:href="@{/addrum}">TRỐNG</a></li>
+					<li><a th:href="@{/adflute}">SÁO TRÚC</a></li>
+					<li><a th:href="@{/adaccessory}">PHỤ KIỆN</a></li>
+					<li><a th:href="@{/adcustomer}">KHÁCH HÀNG</a></li>
+					<li><a th:href="@{/adcart}">ĐƠN HÀNG</a></li>
+					<li><a th:href="@{/aduser}">TÀI KHOẢN</a></li>
+
+
+
+				</div>
+				<div class="nav navbar-nav navbar-right" id="lgright">
+					<li><a th:href="@{/_}">Thoát</a></li>
+					
+					<li data-toggle="tooltip" title="Thông báo"><a><span
+							class="glyphicon glyphicon-globe"></span></a>
+						<ul class="dropdown-menu">
+							<li><a th:href="@{/adcartView/0}"> Bạn có <span
+									th:text="${notconfirm}"></span> đơn hàng mới
+							</a></li>
+							<li><a th:href="@{/adcartView/1}"> Bạn có <span
+									th:text="${confirmed}"></span> đơn hàng chưa thanh toán
+							</a></li>
+							<li><a th:href="@{/notifycomment}"> Bạn có <span
+									th:text="${comment}"></span> lượt bình luận mới
+							</a></li>
+						</ul></li>
+					<li><a ><span
+								class="glyphicon glyphicon-user"></span></a>
+								 <ul class="dropdown-menu">
+          <li><a th:href="@{/logout}">Đăng xuất</a></li>
+         <!--  <li><a th:href="@{/changepassword}">Đổi mật khẩu</a></li> -->
+        
+        </ul></li>
+				</div>
+			</div><b></b>
+		</nav>
+
+	</div>
+	<!--End Thanh menu-->
+</div>

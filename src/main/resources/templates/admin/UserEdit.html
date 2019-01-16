@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+<body class=" backroundbl">
+
+ <div class=" form-login container main-content form"><br/>
+  <div class="menu-title"><a>TÀI KHOẢN</a></div>
+        <div   >
+       <div th:if="${errorMessage!= null}" class="error-message" th:utext="${errorMessage}">
+      </div>
+          <form  action="#" th:action="@{/aduser/save}" th:object="${contact}"
+		    method="POST"  enctype="multipart/form-data">
+		  
+		    
+		     <div class="form-center">
+		    <div  class="form-group">
+		        <label>Tên tài Khoản:</label> 
+		        <input  type="text" th:value= "${contact.userName}" th:field="${contact.userName}" id="name" class="form-control"  />
+		  
+		    </div>
+ 			 <div  class="form-group">
+		        <label>Mật khẩu:</label> 
+		        <input  type="password" th:value= "${contact.encrytedPassword}" th:field="${contact.encrytedPassword}" id="name" class="form-control"  />
+		  
+		    </div>
+		    <br/><br/>
+		   <div > <a th:href="@{/aduser}" ><span class="glyphicon glyphicon-remove">
+                        
+                        </span> Cancel</a>
+		    <button   type="submit" class="btn btn-success btnsave" >Save</button></div>
+		   
+		    </div>
+		</form>
+		<br/><br/>
+        </div>
+    </div><!-- /.container -->
+
+
+          
+                    
+</body>
+
+</html>

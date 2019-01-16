@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body class=" backroundbl">
+
+	<div class="container  white ">
+<br/>
+		<div th:if="${success}" class=" alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+
+		<div class="menu-title">
+			<a>GIỎ HÀNG</a>
+		</div>
+		<th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class="sanpham">Không có sản phẩm nào</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(infos)}">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+
+						<th>Mã</th>
+						<th>Tên sản phẩm</th>
+						<th>Loại</th>
+						<th>Hãng</th>
+						<th>Màu</th>
+
+						<th>Số lượng</th>
+						<th>Giá mua</th>
+
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<tr th:each="contact,iterStat : ${infos}">
+						<td th:text="${contact.id}"></td>
+						<td><a th:href="@{/product_guitar/{id}(id=${contact.id})}"
+							th:text="${contact.name}"></a></td>
+						<td th:text="${contact.category}"></td>
+						<td th:text="${contact.producer}"></td>
+						<td th:text="${contact.color}"></td>
+
+						<td th:text="${contact.soluong}"></td>
+						<td th:text="${contact.giasaugiam}"></td>
+
+
+						<td><a th:href="@{/shoppingcartinfo/{id}/delete(id=${contact.index})}"><button
+									id="btn-click" class="btn btn-default">Xóa</button></a></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</th:block>
+		<br /> <a th:href="@{/}">
+			<button id="btn-click" class="btn btn-success">Xem sản phẩm khác</button>
+		</a>
+		<a th:href="@{/infoCustomer}"><button class="btnchitiet btn">
+			<span class="glyphicon glyphicon-shopping-cart"></span> Mua
+		</button></a>
+<br/><br/>
+	</div>
+
+
+
+
+
+
+
+</body>
+</html>

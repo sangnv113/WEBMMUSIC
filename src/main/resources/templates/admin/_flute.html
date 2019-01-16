@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+    <body>
+      
+       
+    <nav th:replace="/admin/_guitar  :: menu"></nav>
+     <div th:fragment="flute_menu" class="left-menu sticky">
+		<div >
+		
+					<button style="color: red !important"  type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#lefttmenu ">
+						<span class="sr-only">Toggle navigation</span> <span class="	glyphicon glyphicon-chevron-down"></span> 
+					</button>
+					
+
+				</div>
+				<div class="navbar-collapse collapse" id="lefttmenu">
+		<form action="#" th:action="@{/flutefilter}" th:object="${filter}"
+			method="GET">
+			<li>LOẠI</li>
+			<div th:each="contact,iterStat : ${categories}">
+
+				<li><input th:field="${filter.category2}" th:value="${contact.id}"
+					type="radio" name="category" /> <a
+					th:href="@{/flutefilterCategory/{id}(id=${contact.id})}"
+					th:text="${contact.category}"></a></li>
+			</div><b></b>
+			<li>HÃNG</li>
+
+			<div th:each="contact,iterStat : ${producers}">
+				<li><input th:field="*{producer}" th:value="${contact.pid}"
+					type="radio" name="producer" /><a
+					th:href="@{/flutefilterProducer/{id}(id=${contact.pid})}"
+					th:text="${contact.name}"></a></li>
+			</div><b></b>
+
+			<li>GIÁ</li>
+
+
+			<li><input th:field="*{price1}" th:value="1" type="radio"
+				name="price" /><a th:href="@{/flutefilterPrice/1}">Dưới 100k
+					</a></li>
+			<li><input th:field="*{price1}" th:value="2" type="radio"
+				name="price" /><a th:href="@{/flutefilterPrice/2}">Từ 100k đến 500k
+					triệu</a></li>
+			<li><input th:field="*{price1}" th:value="3" type="radio"
+				name="price" /><a th:href="@{/flutefilterPrice/3}">Từ 500k đến
+					1,500 triệu </a></li>
+			<li><input th:field="*{price1}" th:value="4" type="radio"
+				name="price" /><a th:href="@{/flutefilterPrice/4}">Trên 1,5
+					triệu</a></li><b></b>
+			<li><br />
+				<button class="btn btnfilter">
+					<span class="glyphicon glyphicon-search"></span> Lọc
+				</button></li>
+		</form>
+	</div>
+</div>
+	<div class="container jumbotron right">
+
+
+		<div class="menu-title2">
+			<a th:text="${tittle}"></a>
+		</div>
+
+		<th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class="sanpham">Không có dữ liệu</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(infos)}">
+			<!--san pham-->
+			<div th:each="contact,iterStat : ${infos}">
+				<div class="col-sm-3 ">
+					<div class="sanpham panel panel-default">
+						<div class="panel-body">
+							<img class="img-responsive "
+								th:src="@{|/productImage?code=${contact.id}|}" />
+							<div th:if="${contact.giamgia}!=0">
+								<div class="sticksale">
+									-<span th:text="${contact.giamgia}"></span>%
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer">
+							<p class="tensanpham" th:text="${contact.name}"></p>
+
+							<p class="cost" th:text="${contact.giasaugiam}"></p>
+
+							<div th:switch="${contact.giamgia}">
+
+								<p class="status" th:case="'0'" th:text="${contact.producer}"></p>
+								<p class="status" th:case="*">
+									<span class="giamgia" th:text="${contact.gia}"></span>
+								</p>
+
+							</div>
+							<a th:href="@{/_product/{id}(id=${contact.id})}"><button
+									class="btnchitiet btn">
+									<span class="glyphicon glyphicon-shopping-cart"></span> Chi
+									tiết
+								</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</th:block>
+
+
+
+	</div>
+	<br />
+    
+    <footer th:replace="index :: footer"></footer>
+ 
+                 
+    </body></html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+    <body>
+      
+       
+      <nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+     <!--   <div th:fragment="customer_menu" class="left-menu sticky">
+     <form action="#" th:action="@{/adcustomerfilter}" th:object="${filter}"
+		    method="GET">
+         <li>LOẠI</li>
+         <div th:each="contact,iterStat : ${categories}">
+         
+         <li><input th:field="*{category}" th:value="${contact.id}" type="radio" name="category"/> <a th:href="@{/adcustomerfilterCategory/{id}(id=${contact.id})}"  th:text="${contact.category}"></a></li>
+         </div>
+        <li>HÃNG</li> 
+         
+           <div th:each="contact,iterStat : ${producers}">
+           <li><input th:field="*{producer}" th:value="${contact.pid}" type="radio" name="producer"/><a  th:href="@{/adcustomerfilterProducer/{id}(id=${contact.pid})}" th:text="${contact.name}"></a></li>
+           </div>
+        
+           <li>GIÁ</li> 
+           
+         
+          <li><input th:field="*{price1}" th:value="1"  type="radio" name="price"/><a th:href="@{/adcustomerfilterPrice/1}" >Dưới 5 triệu</a></li>
+          <li><input th:field="*{price1}" th:value="2" type="radio" name="price"/><a th:href="@{/adcustomerfilterPrice/2}">Từ 5 đến 15 triệu</a></li>
+             <li><input th:field="*{price1}" th:value="3" type="radio" name="price"/><a th:href="@{/adcustomerfilterPrice/3}">Từ 15 đến 30 triệu</a></li>
+          <li><input th:field="*{price1}" th:value="4" type="radio" name="price"/><a th:href="@{/adcustomerfilterPrice/4}">Trên 30 triệu</a></li>
+        
+         <li><br/><button  class="btn btnfilter"><span  class="glyphicon glyphicon-search"></span> Lọc</button></li> 
+         </form>
+        </div> -->
+      
+      
+      
+      
+    <div class="container jumbotron " >
+        
+        <div  th:if="${success}"
+			class=" alert alert-success alert-dismissible">
+			<button  type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		
+        <div class="menu-title2"><a th:text="${tittle}"></a></div>
+        <th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class= "sanpham">Không có dữ liệu</h3>
+		</th:block>
+        <th:block th:unless="${#lists.isEmpty(infos)}">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                
+                <th>Số điện thoại</th>
+                <th>Tên</th>
+                  <th>Email</th>
+                   <th>Địa chỉ</th>
+                 
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    	
+   		   <tr th:each="contact,iterStat : ${infos}">
+   		     <td th:text="${contact.phone}"></td>
+     		   <td th:text="${contact.name}"></td>
+		        <td th:text="${contact.email}"></td>
+		        <td th:text="${contact.address}"></td>
+		         
+		  
+		        <td><a th:href="@{/adcustomer/{id}/edit(id=${contact.phone})}"><button id="btn-click" class="btn btn-default"  >Chỉnh sửa</button></a>
+		            <a th:href="@{/adcustomer/{id}/delete(id=${contact.phone})}"  ><button id="btn-click" class="btn btn-default"   >Xóa</button></a></td>
+		      </tr>
+		     
+            </tbody>
+          </table>
+</th:block>
+<br/>
+           <a   th:href="@{/adcustomer/create}"> <button id="btn-click" class="btn btn-success"  >Thêm mới</button></a>
+
+       
+</div>
+     
+        
+        
+        
+        
+        
+      <!--   <div class="container jumbotron right">
+        
+         <div class="menu-title">  
+            
+             <a>CÁC SẢN PHẨM KHÁC</a>
+        </div>   
+       </div> -->
+        
+        
+        
+      
+                
+
+    <footer th:replace="index :: footer"></footer>
+ 
+                 
+    </body></html>

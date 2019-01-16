@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="/admin/Admin :: head">
+
+</head>
+
+
+<body onload="TrangThaiHang()">
+
+
+	 <nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+
+
+	<div class="container jumbotron ">
+		<div th:if="${success}" class=" alert alert-danger alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+
+		<div class="menu-title2">
+			<a>THÔNG TIN SẢN PHẨM</a>
+		</div>
+
+
+
+		<!--san pham-->
+		<div class="col-sm-6 ">
+			<div class="product-image">
+				<img class="img-responsive "
+					th:src="@{|/productImage?code=${info.id}|}" />
+			</div>
+
+		</div>
+		<!--san pham-->
+
+		<div class="col-sm-6 ">
+			<div class="text-infomation">
+				<div class="ten">
+					<span th:text="${info.name}"> </span>
+				</div>
+				<div class="small-info">
+					( <span th:text="${info.visits}"> </span> lượt xem)
+				</div>
+
+				<div class="tensanpham">
+					Giá: <span th:text="${info.giasaugiam}"> </span>
+				</div>
+				<div class="small-info" th:switch="${info.giamgia}">
+
+					<div th:case="'0'"></div>
+					<div th:case="*">
+						Giá cũ: <span class="giamgia" th:text="${info.gia}"></span> (-<span
+							th:text="${info.giamgia}"></span>%)
+					</div>
+
+				</div>
+
+				<div class="loai-hang">
+					Loại: <span th:text="${info.category2}"> </span>
+				</div>
+				<div class="loai-hang">
+					Hãng: <span th:text="${info.producer}"> </span>
+				</div>
+				<div class="loai-hang">
+					Màu: <span th:text="${info.color} "> </span>
+				</div>
+
+				<div id="dg">
+					<!-- onmouseout="mOut()" -->
+
+					<div>
+
+						<span id="s1"><img src="../image/none_rate.png" /></span> <span
+							id="s2"><img src="../image/none_rate.png" /></span> <span
+							id="s3"><img src="../image/none_rate.png" /></span> <span
+							id="s4"><img src="../image/none_rate.png" /></span> <span
+							id="s5"><img src="../image/none_rate.png" /></span>
+					</div>
+
+					<span id="danhgia" th:text="${info.rate}"> </span>/10 (<span
+						th:text="${info.luotdanhgia}"> </span> đánh giá)
+				</div>
+				<br /> <br />
+				<div class="status">
+					<span class="glyphicon glyphicon-hand-right "></span>Trạng thái: <span
+						id="trangthai" th:text="${info.soluong}"> </span>
+				</div>
+				<br /> <br /> <br /> <br />
+			</div>
+
+
+		</div>
+
+		<br /> <br />
+		<hr></hr>
+	</div>
+
+	<div class="container jumbotron ">
+		<div class="tieude ">
+			<br /> ĐÁNH GIÁ CỦA KHÁCH HÀNG <span th:text="${info.luotdanhgia}"
+				class="badge"></span>
+		</div>
+		<th:block th:if="${#lists.isEmpty(commentrate)}">
+			<h3 class="nocomment">Chưa có đánh giá nào!</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(commentrate)}">
+			<div th:each="contact,iterStat : ${commentrate}">
+				<div class="media" style="margin-left: 50px;">
+					<hr />
+					<div class="media-left">
+						<img src="../image/img_avatar1.png" class="media-object"
+							style="width: 60px; border-radius: 50px;" />
+					</div>
+					<div class="media-body">
+						<i th:text="${contact.date}"></i>
+						<div>
+							<span class="namerate" th:text="${contact.name}"></span> <i
+								class="cmtrate"> Đã đánh giá <span th:text="${contact.rate}"></span>/5<span
+								class="glyphicon glyphicon-star"></span></i>
+						</div>
+
+						<div class="comment" th:text="${contact.comment}"></div>
+
+					</div>
+				</div>
+				<br />
+			</div>
+		</th:block>
+		<br /> <br />
+		<hr></hr>
+		<div class="tieude ">
+			BÌNH LUẬN <span th:text="${totalcomment}" class="badge"></span>
+		</div>
+
+		<th:block th:if="${#lists.isEmpty(comments)}">
+			<h3 class="nocomment">Chưa có bình luận nào!</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(comments)}">
+			<div th:each="contact,iterStat : ${comments}">
+				<div class="media" style="margin-left: 50px;">
+
+					<div class="media-left" th:switch="${contact.note}">
+
+						<div th:case="'2'">
+							<img src="../image/mmusic.png" class="media-object"
+								style="width: 60px; border-radius: 50px;" />
+						</div>
+						<div th:case="*">
+							<img src="../image/default.png" class="media-object"
+								style="width: 60px; border-radius: 50px;" />
+						</div>
+
+
+
+					</div>
+
+					<div class="media-body">
+						<i th:text="${contact.date}"></i>
+						<div th:switch="${contact.note}">
+							<div th:case="'2'">
+								<span class="namecmt" style="color: red !important;"
+									th:text="${contact.name}"></span>
+							</div>
+							<div th:case="*">
+								<span class="namecmt" th:text="${contact.name}"></span>
+							</div>
+
+
+						</div>
+						<div class="comment" th:text="${contact.comment}"></div>
+						<br />
+						<div>
+							<a th:href="@{/adcomment/{id}/delete(id=${contact.id})}" class="">Xóa</a>
+						</div>
+					</div>
+				</div>
+				<br />
+			</div>
+		</th:block>
+		<br />
+		<hr></hr>
+		<i style="text-decoration-line: underline;">Thêm bình luận với tư cách admin:</i> <br /> <br />
+		<form th:action="@{/adcommentguitar}" th:object="${onecomment}"
+			method="POST">
+			<input type="hidden" th:field="${onecomment.id}" /> <input
+				th:field="${onecomment.name}" type="hidden" class="form-control" /><input
+				th:field="${onecomment.phone}" type="hidden" class="form-control" />
+			<label>Bình luận:</label> <input th:field="${onecomment.comment}"
+				type="text" class="form-control" /> <br /> <br />
+			<button type="submit" class="btn">
+				<span class="glyphicon glyphicon-star-empty"></span>Gửi bình luận
+			</button>
+		</form>
+	</div>
+
+
+
+
+
+
+
+
+	<footer th:replace="index :: footer"></footer>
+</body>
+</html>

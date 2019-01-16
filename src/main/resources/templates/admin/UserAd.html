@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+    <body>
+      
+       
+      <nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+     
+     
+      
+      
+      
+    <div class="container jumbotron " >
+        
+        <div  th:if="${success}"
+			class=" alert alert-success alert-dismissible">
+			<button  type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+		
+        <div class="menu-title2"><a th:text="${tittle}"></a></div>
+        <th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class= "sanpham">Không có dữ liệu</h3>
+		</th:block>
+        <th:block th:unless="${#lists.isEmpty(infos)}">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                
+                <th>Username</th>
+                <th>Phân quyền</th>
+                 
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    	
+   		   <tr th:each="contact,iterStat : ${infos}">
+   		     <td th:text="${contact.userName}"></td>
+     		
+		        <td th:text="${contact.userRole}"></td>
+		        
+		        <td><a th:href="@{/aduser/{id}/edit(id=${contact.userName})}"><button id="btn-click" class="btn btn-default"  >Đổi password</button></a>
+		            <a th:href="@{/aduser/{id}/delete(id=${contact.userName})}"  ><button id="btn-click" class="btn btn-default"   >Xóa</button></a></td>
+		      </tr>
+		     
+            </tbody>
+          </table>
+</th:block>
+<br/>
+           <a   th:href="@{/aduser/create}"> <button id="btn-click" class="btn btn-success"  >Thêm mới</button></a>
+
+       
+</div>
+     
+        
+        
+        
+        
+   
+      
+                
+
+ 
+ 
+                 
+    </body></html>

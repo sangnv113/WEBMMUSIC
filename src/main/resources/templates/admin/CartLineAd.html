@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head"></head>
+<body>
+	<nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+
+
+
+
+	<div class="container jumbotron right">
+
+		<div th:if="${success}" class=" alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+
+		<div class="menu-title">
+			<a>CHI TIẾT GIỎ HÀNG</a>
+		</div>
+		<th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class="sanpham">Không có dữ liệu</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(infos)}">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+
+						<th>Mã</th>
+						<th>Tên sản phẩm</th>
+						<th>Loại</th>
+						<th>Hãng</th>
+						<th>Màu</th>
+
+						<th>Số lượng</th>
+						<th>Giá mua</th>
+
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<tr th:each="contact,iterStat : ${infos}">
+						<td th:text="${contact.id}"></td>
+						<td><a th:href="@{/_product/{id}(id=${contact.id})}"
+							th:text="${contact.name}"></a></td>
+						<td th:text="${contact.category}"></td>
+						<td th:text="${contact.producer}"></td>
+						<td th:text="${contact.color}"></td>
+
+						<td th:text="${contact.soluong}"></td>
+						<td th:text="${contact.giasaugiam}"></td>
+
+
+						<td><a th:href="@{/adcartline/{id}/{id2}/delete(id=${contact.id}, id2=${contact.idc})}"><button
+									id="btn-click" class="btn btn-default">Xóa</button></a></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</th:block>
+		<br />
+		<!--  <a th:href="@{/adcartline/create}">
+			<button id="btn-click" class="btn btn-success">Thêm mới</button>
+		</a> -->
+		
+
+	</div>
+
+
+
+
+
+
+	<!--   <div class="container jumbotron right">
+        
+         <div class="menu-title">  
+            
+             <a>CÁC SẢN PHẨM KHÁC</a>
+        </div>   
+       </div> -->
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/admin/Admin :: head"></head>
+<body>
+
+
+	<nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+	  <div th:fragment="Adcart_menu" class="left-menu sticky">
+     <div >
+		
+					<button style="color: red !important"  type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#lefttmenu ">
+						<span class="sr-only">Toggle navigation</span> <span class="	glyphicon glyphicon-chevron-down"></span> 
+					</button>
+					
+
+				</div>
+				<div class="navbar-collapse collapse" id="lefttmenu">
+     
+        
+         
+         <li> <a th:href="@{/adcart}" >Tất cả hóa đơn</a></li>
+        
+         <li> <a th:href="@{/adcartView/0}" >Hóa đơn chưa xác nhận</a></li>
+        
+         <li> <a th:href="@{/adcartView/1}" >Hóa đơn đã xác nhận</a></li>
+        
+         <li> <a th:href="@{/adcartView/2}" >Hóa đơn đã thanh toán</a></li>
+        
+     
+        </div> 
+</div>
+
+
+
+	<div class="container jumbotron right">
+
+		<div th:if="${success}" class=" alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+
+		<div class="menu-title2">
+			<a th:text="${tittle}"></a>
+		</div>
+		<th:block th:if="${#lists.isEmpty(infos)}">
+			<h3 class="sanpham">Không có dữ liệu</h3>
+		</th:block>
+		<th:block th:unless="${#lists.isEmpty(infos)}">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Mã</th>
+						<th>Ngày đặt</th>
+						<th>Số điện thoại</th>
+						<th>Tên</th>
+						<th>Email</th>
+						<th>Địa chỉ</th>
+						<th>Số SP</th>
+						<th>Tổng tiền</th>
+						<th>Trạng thái</th>
+
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<tr th:each="contact,iterStat : ${infos}">
+						<td ><a th:href="@{/adcartline/{id}(id=${contact.id})}"
+							th:text="${contact.id}"></a></td>
+						<td th:text="${contact.date}"></td>
+						<td th:text="${contact.phone}"></td>
+						<td th:text="${contact.name}"></td>
+						<td th:text="${contact.email}"></td>
+						<td th:text="${contact.address}"></td>
+						<td th:text="${contact.productions}"></td>
+						<td th:text="${contact.amount}"></td>
+						<td th:text="${contact.status}"></td>
+
+						<td>
+							<div th:switch="${contact.done}">
+
+								<div th:case="'0'">
+									<a th:href="@{/adcartConfirm/{id}(id=${contact.id})}"><button
+											id="btn-click" class="btn btn-default">Xác nhận</button></a>
+
+								</div>
+								<div th:case="1">
+									<a th:href="@{/adcartPaid/{id}(id=${contact.id})}"><button
+											id="btn-click" class="btn btn-default">Thanh toán</button></a>
+
+								</div>
+								<div th:case="*"></div>
+
+							</div>  <a
+							th:href="@{/adcart/{id}/delete(id=${contact.id})}"><button
+									id="btn-click" class="btn btn-default">Xóa</button></a>
+						</td>
+					</tr>
+
+				</tbody>
+			</table>
+		</th:block>
+		<br /> <!-- <a th:href="@{/adcart/create}">
+			<button id="btn-click" class="btn btn-success">Thêm mới</button>
+		</a> -->
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

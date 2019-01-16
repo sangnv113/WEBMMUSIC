@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="index :: head"></head>
+<body onload="TrangThaiHang()">
+
+		<nav th:replace="guitar :: header"></nav>
+	<nav th:replace="piano :: piano_menu"></nav>
+
+
+	<nav th:replace="guitarproduct :: product"></nav>
+	
+	<div class="container jumbotron right">
+
+		<div class="menu-title2">
+
+			<a>CÁC SẢN PHẨM KHÁC</a> <br />
+		</div>
+		<!--san pham-->
+		<div th:each="contact,iterStat : ${infos}">
+			<div class="col-sm-3 ">
+				<div class="sanpham panel panel-default">
+					<div class="panel-body imgpr">
+						<img class="img-responsive "
+							th:src="@{|/productImage?code=${contact.id}|}" />
+						<div th:if="${contact.giamgia}!=0">
+							<div class="sticksale">
+								-<span th:text="${contact.giamgia}"></span>%
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+						<p class="tensanpham" th:text="${contact.name}"></p>
+
+						<p class="cost" th:text="${contact.giasaugiam}"></p>
+
+						<div th:switch="${contact.giamgia}">
+
+							<p class="status" th:case="'0'" th:text="${contact.producer}"></p>
+							<p class="status" th:case="*">
+								<span class="giamgia" th:text="${contact.gia}"></span>
+							</p>
+
+						</div>
+						<a th:href="@{/product_piano/{id}(id=${contact.id})}"><button
+								class="btnchitiet btn">
+								<span class="glyphicon glyphicon-shopping-cart"></span> Chi tiết
+							</button></a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+		<div>
+			<a class="xemthem" th:href="@{/piano}">Xem thêm >></a>
+		</div>
+	</div>
+
+
+
+
+<nav th:replace="guitarproduct :: modalrate"></nav>
+
+	<footer th:replace="index :: footer"></footer>
+</body>
+</html>

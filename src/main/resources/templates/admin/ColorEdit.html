@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+<body class=" backroundbl">
+
+ <div class="jumbotron form-edit container main-content form">
+  <div class="menu-title"><a>Sửa màu sản phẩm</a></div>
+        <div   >
+       <div th:if="${errorMessage!= null}" class="error-message" th:utext="${errorMessage}">
+      </div>
+          <form  action="#" th:action="@{/adcolor/save}" th:object="${contact}"
+		    method="POST"  enctype="multipart/form-data">
+		    <input type="hidden" th:field="*{id}" />
+			
+		    
+		     <div class="form-center">
+		    <div  class="form-group">
+		        <label>Màu:</label> 
+		        <input  type="text" th:value= "${contact.name}" id="name" class="form-control" th:field="*{name}" />
+		   <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                    >..</span>
+		    </div>
+ 			
+		    <br/><br/>
+		   <div > <a th:href="@{/adcolor}" ><span class="glyphicon glyphicon-remove">
+                        
+                        </span> Cancel</a>
+		    <button   type="submit" class="btn btn-success btnsave" >Save</button></div>
+		   
+		    </div>
+		</form>
+		
+        </div>
+    </div><!-- /.container -->
+
+
+          
+                    
+</body>
+
+</html>

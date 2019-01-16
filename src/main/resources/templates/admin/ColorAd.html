@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="/admin/Admin :: head"></head>
+    <body>
+      
+       
+      <nav th:replace="/admin/LayerQuanLy  :: menu"></nav>
+    <div class="container jumbotron right" >
+        
+        <div  th:if="${success}"
+			class=" alert alert-success alert-dismissible">
+			<button  type="button" class="close" data-dismiss="alert"
+				aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<span th:text="${success}"></span>
+		</div>
+        <div class="menu-title"><a>MÀU</a></div>
+        
+        
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                
+                <th>Mã</th>
+                <th>Màu</th>
+                  
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+    	
+   		   <tr th:each="contact,iterStat : ${colors}">
+   		     <td th:text="${contact.id}"></td>
+     		   <td th:text="${contact.name}"></td>
+		       
+		  
+		        <td><a th:href="@{/adcolor/{id}/edit(id=${contact.id})}"><button id="btn-click" class="btn btn-default"  >Chỉnh sửa</button></a>
+		            <a th:href="@{/adcolor/{id}/delete(id=${contact.id})}"  ><button id="btn-click" class="btn btn-default"   >Xóa</button></a></td>
+		      </tr>
+		     
+            </tbody>
+          </table>
+
+           <a   th:href="@{/adcolor/create}"> <button id="btn-click" class="btn btn-success"  >Thêm mới</button></a>
+
+       
+</div>
+     
+        
+ 
+ 
+                 
+    </body></html>
